@@ -1,0 +1,12 @@
+*.aux
+*.bbl
+*.blg
+*.brf
+*.idx
+*.lof
+*.log
+*.lot
+*.synctex.gz
+*.synctex.gz(busy)
+*.toc
+*.loc
