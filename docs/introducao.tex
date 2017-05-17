@@ -2,108 +2,40 @@
 % Arquivo com a introdução da Tese de Mestrado do aluno
 % Gabriel Takaoka Nishimura da Escola Politécnica da Universidade de São Paulo
 % ---
-	\chapter*[Introdução]{Introdução} %(exemplo de capítulo sem numeração, mas presente no Sumário)
+	\chapter*[Introdução]{Introdução}
 	\addcontentsline{toc}{chapter}{Introdução}
-	
-	A utilização de robôs autônomos dentro de ambientes não estruturados ainda é um grande desafio computacional.
-	
-	A utilização de câmeras em robôs autônomos ainda representam um grande desafio computacional.
-	A partir de navegação, manipulação, mapeamento semântico e telepresença, a localização e mapeamento simultâneo (SLAM) d
-	
-	*Na área da Robótica, a Localização e Mapeamento Simultâneo (LMS) se refere ao mapeamento de um ambiente desconhecido e 
-	localização de um robô nesse local, ambos processos realizados de forma simultânea. O mapeamento e localização bem sucedidos podem ter aplicações em carros autônomos, veículos aéreos não tripulados, robôs domésticos e até agricultores. 
-	
-	A literatura apresenta diversas formas de tentar resolver esse problema, que depende dos recursos (principalmente computacionais e energéticos) disponíveis ao robô. Em algumas aplicações, como carros autônomos, existe a necessidade de precisão e respostas rápidas. Nesse caso é necessário utilizar um sensor chamado LIDAR, devido a sua alta taxa de amostragem e precisão \cite{wolcott2017robust}. 
-	
-	As aplicações utilizam sensores LIDAR, SONAR, LASER, RADAR, RGB-D, mas alguns deles 
-	
-	Para resolver esse problema, a literatura
-	utilizados vários tipos de sensores, como 
-	
-	
-	falar sobre alto processamento computacional
-	
-	
-	 O mapeamento e localização bem sucedidos podem ter aplicações em carros autônomos, veículos aéreos não tripulados, robôs domésticos e até agricultores. 
-	
-	
-	
-	Simultaneous localization and mapping (SLAM) is one
-	of the central tasks in robotics and computer vision which
-	enables robots to explore and operate in unknown and
-	unconstrained environments. While 2D or 2.5D SLAM which
-	creates a bird-view map is an well-addressed problem [1],
-	[2], [3], the full-3D SLAM problem has been tackled in
-	recent years with the aid of combined color and depth (RGBD)
-	sensors like the PrimeSense device [4]. An important
-	example for a 3D SLAM algorithm is KinectFusion [5], a
-	dense 3D SLAM algorithm which uses iterative closest point
-	to match depth images and a signed distance volume as a 3D
-	map. The method of Bylow et al. [6] improves on KinectFusion
-	by using a more sophisticated representation of the
-	signed distance function and a better optimization scheme.
-	Kerl et al. [7] presented another dense visual SLAM method
-	which uses the photometric and depth error to optimize
-	the current position estimate. However many current dense
-	3D SLAM methods have the crucial disadvantage that they
-	are very resource intensive and algorithms require dedicated
-	GPU hardware which is expensive and has a high power
-	consumption
-	
 
-	SLAM algorithms are tailored to the available resources, hence not aimed at perfection, but at operational compliance. Published approaches are employed in self-driving cars, unmanned aerial vehicles, autonomous underwater vehicles, planetary rovers, newly emerging domestic robots and even inside the human body.[1]
+	Na área da Robótica, a Localização e Mapeamento Simultâneo (LMS) se refere ao mapeamento de um ambiente desconhecido e localização de um robô nesse local - ambos processos realizados de forma simultânea -, por meio de sensores.
 	
+	A adição do contexto de localização ao robô (ou sistema) tem uma gama de aplicações, como carros autônomos, veículos aéreos não tripulados, robôs domésticos, agricultores e até dentro do corpo humano \cite{bao2014simultaneous}. Os usos citados tem um fator em comum: esses sistemas são predominantemente autônomos, ou seja, funcionam sem o auxílio de um operador.
 	
+	Entretanto, para que sua operação seja verdadeiramente autônoma, é necessário que a capacidade de localização e mapeamento seja integrada a seu sistema \cite{nikolic2014synchronized}. O robô ainda deve considerar controle, planejamento de caminho e tomada de decisão como processos imprescindíveis para seu funcionamento. Esse paralelismo é ainda mais restringido pelo poder computacional e energia disponível ao sistema.
 	
-	employed in self-driving cars, unmanned aerial vehicles, autonomous underwater vehicles, planetary rovers, newly emerging domestic robots and even inside the human body.[1]
+	A literatura apresenta diversas formas de tentar resolver a Localização e Mapeamento Simultâneo em tempo real. Uma das soluções comumente utilizadas por carros autônomos é o sensor chamado LIDAR, que escaneia seu ambiente por meio da emissão de luz e análise de sua reflexão. Ele é muito utilizado devido a sua alta taxa de amostragem e precisão \cite{wolcott2017robust}. Seu custo, no entanto, é muito proibitivo, dificultando sua pesquisa. Uma alternativa mais barata ao LIDAR é o sensor RGB-D, que é basicamente uma câmera que identifica cor e distância dos pontos gravados. Sua precisão não é tão alta, nem ele funciona com ausência de luz, mas é objeto de pesquisa frequentemente visto - devido a seu baixo custo e grande comunidade. O sensor RGB-D gera como saída uma Núvem de Pontos (NP), que, dependendo da análise aplicada, torna possível a resolução do problema LMS tridimensional.
 	
-	
-	in robot navigation, manipulation, semantic
-	mapping, and telepresence. The
-	
-For robots to work in unstructured environments, they need
-to be able to perceive the world. Over the past 20 years,
-we’ve come a long way, from simple range sensors based
-on sonar or IR providing a few bytes of information about
-the world, to ubiquitous cameras to laser scanners. In the
-past few years, sensors like the Velodyne spinning LIDAR
-used in the DARPA Urban Challenge and the tilting laser
-scanner used on the PR2 have given us high-quality 3D
-representations of the world - point clouds. Unfortunately,
-these systems are expensive, costing thousands or tens of
-thousands of dollars, and therefore out of the reach of many
-robotics projects.
-Very recently, however, 3D sensors have become available
-that change the game. For example, the Kinect sensor for
-the Microsoft XBox 360 game system, based on underlying
-technology from PrimeSense, can be purchased for under
-150, and provides real time point clouds as well as 2D
-images. As a result, we can expect that most robots in the
-future will be able to ”see” the world in 3D. All that’s
-needed is a mechanism for handling point clouds efficiently,
-and that’s where the open source Point Cloud Library, PCL,
-comes in. Figure 1 presents the logo of the project.
+	A NP se refere a um conjunto de pontos no sistema de coordenadas do sensor, com intuito de representar a face exterior do objeto escaneado. Com certos algoritmos, como EKF-SLAM ou FastSLAM \cite{durrant2006simultaneous}, é possível posicionar o robô dentro de um sistemas de coordenadas tridimensional independente do criado pelo sensor. Mas esses problemas computacionais requerem um processamento com alta vazão para solucioná-los em tempo real.
+		
+	Para resolver o problema de desempenho tanto em software quando em hardware, FPGAs são utilizadas para atender a restrições de tempo real \cite{tertei2014fpga} de aplicações atuais. Com seu consumo energético reduzido e sua poderosa capacidade de processamento paralelo, as FPGAs se tornam um hardware interessante para implementar em sistemas embarcados complexos com restrições energéticas.
 
+	
+	
+	parallel http://ieeexplore.ieee.org/document/5653696/
+	http://ieeexplore.ieee.org/abstract/document/7836469/
+	Kalmann http://scholarworks.csun.edu/handle/10211.3/176183
+	Laser http://ieeexplore.ieee.org/abstract/document/1641929/
+	bearing http://ieeexplore.ieee.org/abstract/document/1545393/
+	6d slam http://onlinelibrary.wiley.com/doi/10.1002/rob.20209/full
+	efficient http://ieeexplore.ieee.org/abstract/document/7832417/
+	benchmark http://ieeexplore.ieee.org/abstract/document/6907054/
+	evaluation http://ieeexplore.ieee.org/abstract/document/6225199/	
+	
+	\chapter*[Objetivos]{Objetivos}
+	
+	O objetivo desse projeto é a realização do estudo de técnicas e algoritmos para obter componentes relevantes a SLAM 3D (distância percorrida e ângulo de giro), analisando Núvens de Pontos geradas por sensores RGB-D em co-processador usando arquitetura FPGA. Por fim, o trabalho deve criar um sistema SLAM 3D com baixo consumo energético e computacional - utilizando as técnicas estudadas anteriormente - para implementação e testes em ambiente físico com robô.
 
-One highly relevant problem in robotics
-is the so-called simultaneous localization (SLAM) problem
-where the goal is to both recover the camera trajectory and
-the map from sensor data. The SLAM problem has been
-investigated in great detail for sensors such as sonar, laser,
-cameras, and time-of-flight sensors. Recently, novel low-cost
-RGB-D sensors such as the Kinect became available, and
-the first SLAM systems using these sensors have already
-appeared [2]–[4]. Other algorithms focus on fusing depth
-maps to a coherent 3D model [5]. Yet, the accuracy of the
-computed 3D model heavily depends on how accurate one
-can determine the individual camera poses.
-	
-	
-	\section*{Objetivos}\label{sec-objetivos}
-	
-	O objetivo desse projeto é a realização do estudo de técnicas e algoritmos para obter componentes relevantes a SLAM 3D (distância percorrida e ângulo de giro), analisando Núvens de Pontos geradas por sensores RGB-D em plataforma FPGA. Por fim, o trabalho deve criar um sistema SLAM 3D com baixo consumo energético e computacional - utilizando as técnicas estudadas anteriormente - para implementação e testes em ambiente físico com robô.
-
+	\begin{comment}
 	\section*{Motivação}\label{sec-motivacao}
 		
 	Motivacao
 	\cite{Rusu_ICRA2011_PCL}
+	\end{comment}
