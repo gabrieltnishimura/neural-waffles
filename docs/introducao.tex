@@ -5,37 +5,30 @@
 	\chapter*[Introdução]{Introdução}
 	\addcontentsline{toc}{chapter}{Introdução}
 
-	Na área da Robótica, a Localização e Mapeamento Simultâneo (LMS) se refere ao mapeamento de um ambiente desconhecido e localização de um robô nesse local - ambos processos realizados de forma simultânea -, por meio de sensores.
+	Na área da Robótica, a Localização e Mapeamento Simultâneo (SLAM) se refere ao mapeamento de um ambiente desconhecido e localização de um robô nesse local - ambos processos realizados de forma simultânea - por meio de sensores.
 	
 	A adição do contexto de localização ao robô (ou sistema) tem uma gama de aplicações, como carros autônomos, veículos aéreos não tripulados, robôs domésticos, agricultores e até dentro do corpo humano \cite{bao2014simultaneous}. Os usos citados tem um fator em comum: esses sistemas são predominantemente autônomos, ou seja, funcionam sem o auxílio de um operador.
 	
 	Entretanto, para que sua operação seja verdadeiramente autônoma, é necessário que a capacidade de localização e mapeamento seja integrada a seu sistema \cite{nikolic2014synchronized}. O robô ainda deve considerar controle, planejamento de caminho e tomada de decisão como processos imprescindíveis para seu funcionamento. Esse paralelismo é ainda mais restringido pelo poder computacional e energia disponível ao sistema.
 	
-	A literatura apresenta diversas formas de tentar resolver a Localização e Mapeamento Simultâneo em tempo real. Uma das soluções comumente utilizadas por carros autônomos é o sensor chamado LIDAR, que escaneia seu ambiente por meio da emissão de luz e análise de sua reflexão. Ele é muito utilizado devido a sua alta taxa de amostragem e precisão \cite{wolcott2017robust}. Seu custo, no entanto, é muito proibitivo, dificultando sua pesquisa. Uma alternativa mais barata ao LIDAR é o sensor RGB-D, que é basicamente uma câmera que identifica cor e distância dos pontos gravados. Sua precisão não é tão alta, nem ele funciona com ausência de luz, mas é objeto de pesquisa frequentemente visto - devido a seu baixo custo e grande comunidade. O sensor RGB-D gera como saída uma Núvem de Pontos (NP), que, dependendo da análise aplicada, torna possível a resolução do problema LMS tridimensional.
+	A literatura apresenta diversas formas de tentar resolver a Localização e Mapeamento Simultâneo em tempo real. Uma das soluções comumente utilizadas por carros autônomos é o sensor chamado LIDAR, que escaneia seu ambiente por meio da emissão de luz e análise de sua reflexão. Ele é muito utilizado devido a sua alta taxa de amostragem e precisão \cite{wolcott2017robust}. Seu custo, no entanto, é muito proibitivo, dificultando sua pesquisa. Uma alternativa mais barata ao LIDAR é o sensor RGB-D, que é basicamente uma câmera que identifica cor e distância dos pontos gravados. Sua precisão não é tão alta, nem ele funciona com ausência de luz, mas é objeto de pesquisa frequentemente visto - devido a seu baixo custo e grande comunidade. 
 	
-	A NP se refere a um conjunto de pontos no sistema de coordenadas do sensor, com intuito de representar a face exterior do objeto escaneado. Com certos algoritmos, como EKF-SLAM ou FastSLAM \cite{durrant2006simultaneous}, é possível posicionar o robô dentro de um sistemas de coordenadas tridimensional independente do criado pelo sensor. Mas esses problemas computacionais requerem um processamento com alta vazão para solucioná-los em tempo real.
+	O sensor RGB-D gera como saída uma Nuvem de Pontos (NP), que, dependendo da análise aplicada, torna possível a resolução do problema SLAM tridimensional \cite{henry2012rgb}. 	
+	
+	A NP se refere a um conjunto de pontos no sistema de coordenadas do sensor, com intuito de representar a face exterior do objeto escaneado. Com certos algoritmos, como EKF-SLAM ou FastSLAM \cite{durrant2006simultaneous}, é possível posicionar o robô dentro de um sistemas de coordenadas tridimensional independente do criado pelo sensor. A solução de uma CP é atualmente aprimorada por um conjunto de empresas (como a Intel, Toyota, nVIDIA), que disponibiliza uma biblioteca para resolver problemas de nuvem de pontos em três dimensões \cite{Rusu_ICRA2011_PCL}. Mas mesmo com a disponibilidade da biblioteca, esses problemas computacionais requerem um processamento com alta vazão para solucioná-los em tempo real \cite{clipp2010parallel}.
 		
-	Para resolver o problema de desempenho tanto em software quando em hardware, FPGAs são utilizadas para atender a restrições de tempo real \cite{tertei2014fpga} de aplicações atuais. Com seu consumo energético reduzido e sua poderosa capacidade de processamento paralelo, as FPGAs se tornam um hardware interessante para implementar em sistemas embarcados complexos com restrições energéticas.
-
+	Para resolver o problema de desempenho tanto em software quando em hardware, existem algumas abordagens tomadas, como por exemplo o uso de Unidade de Processamento Gráfico de Propósito Geral (GPGPU) \cite{lee2012gpu} e o uso de FPGAs \cite{nikolic2014synchronized}. 
 	
+	No caso de GPGPUs, existe um alto consumo de energia e de processamento, pois essas placas gráficas são feitas para processar um volume de dados de Gigabits/s devido à sua arquitetura com alto nível de paralelismo. As suas desvantagens são o alto consumo de energia e o fato de que não são específicas para resolver nuvens de pontos.
 	
-	parallel http://ieeexplore.ieee.org/document/5653696/
-	http://ieeexplore.ieee.org/abstract/document/7836469/
-	Kalmann http://scholarworks.csun.edu/handle/10211.3/176183
-	Laser http://ieeexplore.ieee.org/abstract/document/1641929/
-	bearing http://ieeexplore.ieee.org/abstract/document/1545393/
-	6d slam http://onlinelibrary.wiley.com/doi/10.1002/rob.20209/full
-	efficient http://ieeexplore.ieee.org/abstract/document/7832417/
-	benchmark http://ieeexplore.ieee.org/abstract/document/6907054/
-	evaluation http://ieeexplore.ieee.org/abstract/document/6225199/	
+	FPGAs são utilizadas para atender a restrições de tempo real \cite{tertei2014fpga} de aplicações atuais com um algoritmo altamente específico para o problema. Com seu consumo energético reduzido e sua poderosa capacidade de processamento paralelo, as FPGAs se tornam um hardware interessante para implementar em sistemas embarcados complexos com restrições energéticas.
 	
-	\chapter*[Objetivos]{Objetivos}
+	É comum a área de engenharia se associar com outras áreas de conhecimento. É o caso desse projeto, que tem como aplicação a agricultura. O robô desenvolvido no projeto identificará ervas daninhas em uma plantação e as elimina através de um choque elétrico. Dessa forma, não é necessário o uso de agrotóxicos. Trabalhos anteriores referentes a agricultura também foram vistos \cite{cheein2011optimized}, mas não com o intuito de otimizar culturas orgânicas.
+	
+	\chapter{Objetivos}
 	
 	O objetivo desse projeto é a realização do estudo de técnicas e algoritmos para obter componentes relevantes a SLAM 3D (distância percorrida e ângulo de giro), analisando Núvens de Pontos geradas por sensores RGB-D em co-processador usando arquitetura FPGA. Por fim, o trabalho deve criar um sistema SLAM 3D com baixo consumo energético e computacional - utilizando as técnicas estudadas anteriormente - para implementação e testes em ambiente físico com robô.
+	
+	Esse robô deverá precisamente identificar a posição de uma erva daninha e eliminá-la por meio de um choque elétrico. 	
 
-	\begin{comment}
-	\section*{Motivação}\label{sec-motivacao}
-		
-	Motivacao
-	\cite{Rusu_ICRA2011_PCL}
-	\end{comment}
+	%\section*{Motivação}\label{sec-motivacao}

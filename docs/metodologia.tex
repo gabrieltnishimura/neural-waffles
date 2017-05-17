@@ -6,12 +6,34 @@
 	\chapter{Metodologia}\label{cap-metodologia}
 	% ---
 
-	Com o intuito de implementar um sistema de navegação robótica utilizando SLAM 3D, propõe-se um método que consiste em duas etapas. A primeira etapa 
+	Com o intuito de implementar um sistema de navegação robótica utilizando SLAM 3D, propõe-se um método que consiste em duas etapas. A primeira etapa é a pesquisa bibliográfica, que consistirá no entendimento de algoritmos para nuvens de pontos.
 	
-	
-	Uma placa FPGA será utilizada para 
-	
+	Para o desenvolvimento do co-processador, será necessário principalmente o uso de uma FPGA com o software de programação Altera Quartus. A nuvem de pontos será obtida com o periférico Kinect, e as salas usadas serão o Laboratório de Automação Agrícola e o Laboratório de Sistemas Digitais. Adicionalmente, o robô será adquirido por meio da professora Anna Reali.
 	
 	\chapter{Crongrama}\label{cap-cronograma}
 	
-	
+	Para a execução do projeto de pesquisa, serão realizadas as atividades abaixo, de acordo com a \autoref{tab-cronograma}
+
+	\begin{enumerate}
+		\item Especificação do algoritmo para análise de nuvem de pontos em FPGA.
+		\item Transformação da FPGA em co-processador do robô.
+		\item Testes de funcionamento do algoritmo implementado no robô em ambiente real.
+		\item Estudo do consumo energético e processamento computacional da FPGA.
+		\item Escrita de artigo para publicação para divulgar os resultados obtidos.
+		\item Escrita da monografia.
+	\end{enumerate}
+
+	\begin{table}[h]
+		\centering
+		\caption{Planejamento de atividades}
+		\label{tab-cronograma}
+		\begin{tabular}{lllrl}
+			\multicolumn{1}{c}{Atividade / Semestre} & 1 & 2 & 3 & 4 \\ \hline
+			1                                        & X &   &   &   \\
+			2                                        &   & X &   &   \\
+			3                                        &   &   & X &   \\
+			4                                        &   &   & X &   \\
+			5                                        &   &   &   & X \\
+			6                                        &   &   &   & X
+		\end{tabular}
+	\end{table}
